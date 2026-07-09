@@ -99,10 +99,28 @@ def joinFactors(factors: List[Factor]):
                     "\nappear in more than one input factor.\n" + 
                     "Input factors: \n" +
                     "\n".join(map(str, factors)))
+        
+    setsOfConditioned = [set(factor.conditionedVariables()) for factor in factors]
 
+    factors = list(factors)
 
+    unconditioned = set().union(*setsOfUnconditioned)
+    conditioned = set().union(*setsOfConditioned)
+
+    conditioned = conditioned - unconditioned    
+
+    domainsDict = factors[0].variableDomainsDict()
+
+    returnFactor = Factor(unconditioned, conditioned, domainsDict)
+
+    for assignment in returnFactor.getAllPossibleAssignmentDicts():
+        prob = 1
+        for factor in factors:
+            prob *= factor.getProbability(assignment)
+        returnFactor.setProbability(assignment, prob)
+
+    return returnFactor
     "*** YOUR CODE HERE ***"
-    raiseNotDefined()
     "*** END YOUR CODE HERE ***"
 
 ########### ########### ###########
@@ -153,7 +171,24 @@ def eliminateWithCallTracking(callTrackingList=None):
                     "unconditionedVariables: " + str(factor.unconditionedVariables()))
 
         "*** YOUR CODE HERE ***"
-        raiseNotDefined()
+        oldUnconditioned = factor.unconditionedVariables()
+        Conditioned = factor.conditionedVariables()
+
+        Unconditioned = oldUnconditioned - {eliminationVariable}
+
+        domainsDict = factor.variableDomainsDict()
+
+        returnFactor = Factor(Unconditioned, Conditioned, domainsDict)
+
+        for assignment in returnFactor.getAllPossibleAssignmentDicts():
+            totalProbability = 0
+            for value in domainsDict[eliminationVariable]:
+                oldAssignment = assignment.copy()
+                oldAssignment[eliminationVariable] = value
+                totalProbability += factor.getProbability(oldAssignment)
+            returnFactor.setProbability(assignment, totalProbability)
+
+        return returnFactor
         "*** END YOUR CODE HERE ***"
 
     return eliminate
