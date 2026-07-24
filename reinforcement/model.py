@@ -30,8 +30,8 @@ class DeepQNetwork(Module):
 
         hidden_size = 512
 
-        self.state_to_hidden = Linear(self.state_size, hidden_size)
-        self.hidden_to_output = Linear(hidden_size, self.num_actions)
+        self.state_to_hidden = Linear(self.state_size, hidden_size)      # 权重: (512, state_dim)
+        self.hidden_to_output = Linear(hidden_size, self.num_actions)    # 权重: (num_actions, 512)
         "**END CODE"""
         self.double()
 

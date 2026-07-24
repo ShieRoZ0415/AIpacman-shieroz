@@ -193,7 +193,7 @@ class ApproximateQAgent(PacmanQAgent):
     def __init__(self, extractor='IdentityExtractor', **args):
         self.featExtractor = util.lookup(extractor, globals())()
         PacmanQAgent.__init__(self, **args)
-        self.weights = util.Counter()
+        self.weights = util.Counter()  # 特征权重: key=特征名 -> value=权重值
 
     def getWeights(self):
         return self.weights

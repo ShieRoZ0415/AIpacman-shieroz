@@ -36,7 +36,7 @@ class PerceptronModel(Module):
         """
         super(PerceptronModel, self).__init__()
         "*** YOUR CODE HERE ***"
-        self.w = Parameter(ones(1, dimensions)) #Initialize your weights here
+        self.w = Parameter(ones(1, dimensions))  # 权重: (1, dimensions)
 
     def get_weights(self):
         """
@@ -106,11 +106,11 @@ class RegressionModel(Module):
     def __init__(self):
         # Initialize your model parameters here
         "*** YOUR CODE HERE ***"
-        
+
         super().__init__()
-        self.layer1 = Linear(1, 128)
-        self.layer2 = Linear(128, 128)
-        self.layer3 = Linear(128, 1)
+        self.layer1 = Linear(1, 128)    # 权重: (128, 1), 偏置: (128,)
+        self.layer2 = Linear(128, 128)  # 权重: (128, 128), 偏置: (128,)
+        self.layer3 = Linear(128, 1)    # 权重: (1, 128), 偏置: (1,)
 
 
 
@@ -204,9 +204,9 @@ class DigitClassificationModel(Module):
         input_size = 28 * 28
         output_size = 10
         "*** YOUR CODE HERE ***"
-        self.layer1 = Linear(input_size, 256)
-        self.layer2 = Linear(256, 128)
-        self.layer3 = Linear(128, output_size)
+        self.layer1 = Linear(input_size, 256)   # 权重: (256, 784)
+        self.layer2 = Linear(256, 128)           # 权重: (128, 256)
+        self.layer3 = Linear(128, output_size)   # 权重: (10, 128)
 
 
     def run(self, x):
@@ -294,9 +294,9 @@ class LanguageIDModel(Module):
         "*** YOUR CODE HERE ***"
         # Initialize your model parameters here
         hidden_size = 256
-        self.char_to_hidden = Linear(self.num_chars, hidden_size)
-        self.hidden_to_hidden = Linear(hidden_size, hidden_size)
-        self.hidden_to_output = Linear(hidden_size, len(self.languages))
+        self.char_to_hidden = Linear(self.num_chars, hidden_size)       # 权重: (256, 47)
+        self.hidden_to_hidden = Linear(hidden_size, hidden_size)         # 权重: (256, 256)
+        self.hidden_to_output = Linear(hidden_size, len(self.languages)) # 权重: (5, 256)
 
 
     def run(self, xs):
@@ -450,10 +450,10 @@ class DigitConvolutionalModel(Module):
         super().__init__()
         output_size = 10
 
-        self.convolution_weights = Parameter(ones((3, 3)))
+        self.convolution_weights = Parameter(ones((3, 3)))  # 卷积核权重: (3, 3)
         """ YOUR CODE HERE """
-        self.layer1 = Linear(26 * 26, 128)
-        self.layer2 = Linear(128, output_size)
+        self.layer1 = Linear(26 * 26, 128)  # 权重: (128, 676)
+        self.layer2 = Linear(128, output_size)  # 权重: (10, 128)
 
 
     def run(self, x):
