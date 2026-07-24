@@ -269,6 +269,12 @@ def betterEvaluationFunction(currentGameState: GameState):
     evaluation function (question 5).
 
     DESCRIPTION: <write something here so we know what you did>
+    1. Winning states receive positive infinity, while losing states receive negative infinity。
+    2. A penalty proportional to the number of remaining food pellets is applied to encourage Pacman to finish the maze.
+    3. A reciprocal-distance reward is added for the nearest food pellet, encouraging Pacman to move toward reachable food.
+    4. Scared ghosts provide a large reciprocal-distance reward, encouraging Pacman to chase and eat them while they are vulnerable.
+    5. Active ghosts produce a reciprocal-distance penalty, encouraging Pacman to keep a safe distance from dangerous ghosts.
+    6. A collision with an active ghost is treated as an immediately losing state.
     """
     "*** YOUR CODE HERE ***"
     if currentGameState.isWin():
